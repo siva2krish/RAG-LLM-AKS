@@ -1,0 +1,63 @@
+# =============================================================================
+# RAG + LLM Production System Dependencies
+# =============================================================================
+
+# --- Core Framework ---
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+pydantic==2.6.1
+pydantic-settings==2.1.0
+python-multipart==0.0.9
+
+# --- Azure Services ---
+azure-identity==1.15.0
+azure-search-documents==11.4.0
+azure-storage-blob==12.19.0
+openai==1.12.0                    # Azure OpenAI compatible
+
+# --- LLM & RAG Frameworks ---
+langchain==0.1.9
+langchain-openai==0.0.6
+langchain-community==0.0.24
+langchain-core==0.1.27
+tiktoken==0.6.0                   # Token counting
+
+# --- Vector & Embeddings ---
+faiss-cpu==1.7.4                  # Local vector store for dev
+sentence-transformers==2.3.1      # Local embeddings alternative
+numpy==1.26.4
+
+# --- Document Processing ---
+pypdf==4.0.1
+python-docx==1.1.0
+unstructured==0.12.4
+beautifulsoup4==4.12.3
+markdown==3.5.2
+
+# --- Caching & Queue ---
+redis==5.0.1
+celery==5.3.6
+
+# --- Observability ---
+opentelemetry-api==1.22.0
+opentelemetry-sdk==1.22.0
+opentelemetry-instrumentation-fastapi==0.43b0
+opentelemetry-exporter-otlp==1.22.0
+prometheus-client==0.19.0
+structlog==24.1.0
+
+# --- Testing ---
+pytest==8.0.0
+pytest-asyncio==0.23.4
+pytest-cov==4.1.0
+httpx==0.26.0
+
+# --- Development ---
+python-dotenv==1.0.1
+black==24.1.1
+ruff==0.2.1
+mypy==1.8.0
+
+# --- Admin UI ---
+streamlit==1.31.0
+plotly==5.18.0

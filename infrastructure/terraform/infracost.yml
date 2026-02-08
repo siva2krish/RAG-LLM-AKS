@@ -1,0 +1,32 @@
+version: 0.1
+
+# =============================================================================
+# Infracost Configuration
+# =============================================================================
+# Get cost estimates before applying Terraform
+# 
+# Setup:
+#   brew install infracost
+#   infracost auth login
+#
+# Usage:
+#   infracost breakdown --path .
+#   infracost diff --path . --compare-to infracost-base.json
+# =============================================================================
+
+projects:
+  - path: .
+    name: siva-rag-infrastructure
+    
+    terraform_var_files:
+      - environments/dev.tfvars
+    
+    # Exclude data sources from cost estimation
+    exclude_paths:
+      - "**/.terraform/**"
+
+# Currency for cost display
+currency: USD
+
+# Enable all cost components
+# include_all_resources: true
