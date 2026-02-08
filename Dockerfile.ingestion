@@ -1,0 +1,28 @@
+# =============================================================================
+# Dockerfile for Ingestion Worker
+# =============================================================================
+# Polls Azure Blob Storage for new documents, chunks them,
+# generates embeddings, and indexes into Azure AI Search.
+# =============================================================================
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN useradd --create-home --shell /bin/bash appuser
+
+COPY requirements-minimal.txt ./
+RUN pip install --no-cache-dir -r requirements-minimal.txt
+
+COPY src/ ./src/
+
+RUN chown -R appuser:appuser /app
+USER appuser
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    POLL_INTERVAL_SECONDS=30
+
+# No health check needed for worker (not serving HTTP)
+CMD ["python", "-m", "src.ingestion.worker"]

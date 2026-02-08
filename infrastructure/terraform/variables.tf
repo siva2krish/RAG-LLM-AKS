@@ -70,6 +70,19 @@ variable "enable_autoscaling" {
   default     = false  # Disabled for predictable costs
 }
 
+variable "aks_private_cluster" {
+  description = "Enable private cluster (API server only reachable via VNet). Requires jumpbox/VPN for kubectl."
+  type        = bool
+  default     = false  # Keep false for dev (need kubectl from laptop)
+}
+
+variable "aks_authorized_ip_ranges" {
+  description = "List of CIDR ranges allowed to access the API server. Empty = allow all."
+  type        = list(string)
+  default     = []  # Empty = no restriction. Set to ["YOUR_IP/32"] for security.
+  # Example: ["203.0.113.50/32"] restricts to one IP
+}
+
 # =============================================================================
 # Feature Flags - Enable/Disable expensive components
 # =============================================================================

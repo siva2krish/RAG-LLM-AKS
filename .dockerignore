@@ -1,0 +1,35 @@
+# Ignore files for Docker build
+.git
+.gitignore
+.env
+.env.*
+*.md
+!README.md
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.coverage
+htmlcov/
+.venv
+venv/
+
+# Infrastructure (not needed in container)
+infrastructure/
+.terraform/
+*.tfstate*
+*.tfvars
+
+# IDE
+.vscode/
+.idea/
+
+# Tests (not needed in production image)
+tests/
+notebooks/
+
+# Build artifacts
+*.log
+.infracost/

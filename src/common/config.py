@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     azure_search_index_name: str = Field(default="rag-documents")
     
     # --- Azure Blob Storage ---
-    azure_storage_connection_string: str = Field(..., description="Blob storage connection")
+    azure_storage_connection_string: str = Field(default="", description="Blob storage connection")
     azure_storage_container: str = Field(default="documents")
     
     # --- Redis ---
@@ -83,8 +83,8 @@ class Settings(BaseSettings):
     rate_limit_window_seconds: int = Field(default=60)
     
     # --- Observability ---
-    otel_exporter_otlp_endpoint: str = Field(default="http://localhost:4317")
-    enable_tracing: bool = Field(default=True)
+    otel_exporter_otlp_endpoint: str = Field(default="http://jaeger-collector.monitoring.svc.cluster.local:4317")
+    enable_tracing: bool = Field(default=False)
     
     @field_validator("app_env")
     @classmethod

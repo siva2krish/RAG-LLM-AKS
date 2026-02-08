@@ -138,7 +138,10 @@ LOG_LEVEL=INFO
 CHUNK_SIZE=1000
 CHUNK_OVERLAP=200
 TOP_K_RESULTS=5
-SIMILARITY_THRESHOLD=0.75
+SIMILARITY_THRESHOLD=0.01
+
+# Redis (in-cluster)
+REDIS_URL=redis://redis-master.rag-system.svc.cluster.local:6379/0
 EOT
 }
 

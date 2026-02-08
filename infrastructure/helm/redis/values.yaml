@@ -1,0 +1,31 @@
+# Lightweight single-pod Redis (no cluster, no sentinel)
+# Cost: $0 (runs on existing AKS node)
+
+replicaCount: 1
+
+image:
+  repository: redis
+  tag: "7.2-alpine"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 6379
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+persistence:
+  enabled: false  # Ephemeral cache - data lost on restart (fine for dev)
+
+# Redis config
+config: |
+  maxmemory 100mb
+  maxmemory-policy allkeys-lru
+  save ""
+  appendonly no

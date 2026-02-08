@@ -1,0 +1,348 @@
+<mxfile host="app.diagrams.net" modified="2026-02-08T00:00:00.000Z" agent="draw.io" version="24.0.0" type="device">
+  <diagram id="cloud-arch" name="Cloud Architecture">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Azure Cloud boundary -->
+        <mxCell id="azure-cloud" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=3;dashed=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="1520" height="940" as="geometry" />
+        </mxCell>
+        <mxCell id="azure-label" value="&lt;b style=&quot;font-size:16px;&quot;&gt;Azure Cloud — eastus2&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="220" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- AKS Cluster boundary -->
+        <mxCell id="aks-boundary" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=4;dashed=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="1480" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="aks-label" value="&lt;b style=&quot;font-size:14px;&quot;&gt;AKS Cluster&lt;/b&gt;&lt;br&gt;Free Tier · 1× Standard_B2s · Azure CNI Overlay (192.168.0.0/16)" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="85" width="450" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- NGINX Ingress -->
+        <mxCell id="nginx" value="&lt;b&gt;NGINX Ingress&lt;/b&gt;&lt;br&gt;Internal LB&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;No public IP&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="150" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- RAG API -->
+        <mxCell id="rag-api" value="&lt;b&gt;RAG API&lt;/b&gt;&lt;br&gt;FastAPI · Port 8000&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;/api/v1/query · /api/v1/chat&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="150" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Chat UI -->
+        <mxCell id="chat-ui" value="&lt;b&gt;Chat UI&lt;/b&gt;&lt;br&gt;Streamlit · Port 8501&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;Interactive RAG Chat&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="700" y="150" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Ingestion Worker -->
+        <mxCell id="ingestion" value="&lt;b&gt;Ingestion Worker&lt;/b&gt;&lt;br&gt;Background Process&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;Blob → Chunk → Embed → Index&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="150" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Redis -->
+        <mxCell id="redis" value="&lt;b&gt;Redis&lt;/b&gt;&lt;br&gt;Response Cache&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;In-cluster · TTL-based&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#fff2cc;strokeColor=#d6b656;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="140" y="310" width="140" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- KEDA -->
+        <mxCell id="keda" value="&lt;b&gt;KEDA&lt;/b&gt;&lt;br&gt;Autoscaler&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;Scale-to-zero&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="320" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Prometheus -->
+        <mxCell id="prometheus" value="&lt;b&gt;Prometheus&lt;/b&gt;&lt;br&gt;Metrics Collection&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;kube-prometheus-stack&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="600" y="320" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Grafana -->
+        <mxCell id="grafana" value="&lt;b&gt;Grafana&lt;/b&gt;&lt;br&gt;Dashboards&lt;br&gt;&lt;font color=&quot;#666666&quot; style=&quot;font-size:10px;&quot;&gt;Port 3000&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="860" y="320" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Namespace labels -->
+        <mxCell id="ns-rag" value="&lt;font color=&quot;#9673a6&quot; style=&quot;font-size:10px;&quot;&gt;namespace: rag-system&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ns-shared" value="&lt;font color=&quot;#d6b656&quot; style=&quot;font-size:10px;&quot;&gt;namespaces: ingress-nginx · keda-system · monitoring&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="400" width="310" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Shared platform services boundary -->
+        <mxCell id="shared-boundary" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#d6b656;dashed=1;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="290" width="920" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="shared-label" value="&lt;font color=&quot;#d6b656&quot;&gt;&lt;b&gt;Shared Platform Services&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="293" width="170" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- App services boundary -->
+        <mxCell id="app-boundary" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;dashed=1;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="130" width="910" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="app-label" value="&lt;font color=&quot;#82b366&quot;&gt;&lt;b&gt;Application Services&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="133" width="150" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Azure PaaS boundary -->
+        <mxCell id="paas-boundary" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;arcSize=4;dashed=0;strokeWidth=2;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="60" y="590" width="1480" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="paas-label" value="&lt;b style=&quot;font-size:14px;&quot;&gt;Azure PaaS Services&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="600" width="170" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Azure OpenAI -->
+        <mxCell id="openai" value="&lt;b&gt;Azure OpenAI&lt;/b&gt;&lt;br&gt;S0 Tier&lt;br&gt;&lt;hr&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;gpt-4o-mini (10K TPM)&lt;br&gt;text-embedding-3-small (10K TPM)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="100" y="650" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Azure AI Search -->
+        <mxCell id="search" value="&lt;b&gt;Azure AI Search&lt;/b&gt;&lt;br&gt;Free Tier&lt;br&gt;&lt;hr&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;HNSW Vector Index&lt;br&gt;Hybrid: Vector + BM25&lt;br&gt;Index: rag-documents&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400" y="650" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ACR -->
+        <mxCell id="acr" value="&lt;b&gt;Container Registry&lt;/b&gt;&lt;br&gt;ACR Basic&lt;br&gt;&lt;hr&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;rag-api · rag-chat-ui&lt;br&gt;ingestion-worker&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="700" y="650" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Key Vault -->
+        <mxCell id="keyvault" value="&lt;b&gt;Key Vault&lt;/b&gt;&lt;br&gt;Standard&lt;br&gt;&lt;hr&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;openai-api-key&lt;br&gt;search-api-key&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="100" y="800" width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Storage Account -->
+        <mxCell id="storage" value="&lt;b&gt;Storage Account&lt;/b&gt;&lt;br&gt;Standard LRS&lt;br&gt;&lt;hr&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;Blob Container: documents&lt;br&gt;Private access only&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400" y="800" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Log Analytics -->
+        <mxCell id="loganalytics" value="&lt;b&gt;Log Analytics&lt;/b&gt;&lt;br&gt;PerGB2018&lt;br&gt;&lt;hr&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;30-day retention&lt;br&gt;AKS diagnostics sink&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="700" y="800" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Cost badge -->
+        <mxCell id="cost-badge" value="&lt;b style=&quot;font-size:14px;&quot;&gt;💰 $40.17/month&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;Infracost-verified · 15 resources · 8 free-tier&lt;/font&gt;" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;size=20;position=0.5;base=20;fillColor=#e6d0de;strokeColor=#996185;shadow=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="640" width="280" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- IaC badge -->
+        <mxCell id="iac-badge" value="&lt;b&gt;Infrastructure as Code&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;Terraform (15 Azure resources)&lt;br&gt;Helm (7 K8s releases)&lt;br&gt;deploy.sh → 10 steps → 15 min&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d0de;strokeColor=#996185;shadow=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="750" width="230" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Connections: Ingress → RAG API -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="nginx" target="rag-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1-label" value="HTTP" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#666666;" vertex="1" connectable="0" parent="e1">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Chat UI → RAG API -->
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="chat-ui" target="rag-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2-label" value="REST" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#666666;" vertex="1" connectable="0" parent="e2">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RAG API → Redis -->
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;strokeWidth=2;dashed=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rag-api" target="redis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3-label" value="cache" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d6b656;" vertex="1" connectable="0" parent="e3">
+          <mxGeometry x="-0.2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RAG API → Azure OpenAI -->
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#0050ef;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rag-api" target="openai">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="510" />
+              <mxPoint x="210" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4-label" value="embed + generate" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0050ef;" vertex="1" connectable="0" parent="e4">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RAG API → AI Search -->
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#0050ef;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rag-api" target="search">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="530" />
+              <mxPoint x="510" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5-label" value="hybrid search" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0050ef;" vertex="1" connectable="0" parent="e5">
+          <mxGeometry x="-0.2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Ingestion → Storage -->
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#0050ef;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ingestion" target="storage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="540" />
+              <mxPoint x="510" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6-label" value="poll blobs" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0050ef;" vertex="1" connectable="0" parent="e6">
+          <mxGeometry x="-0.5" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Ingestion → AI Search -->
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#0050ef;strokeWidth=2;dashed=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ingestion" target="search">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1055" y="560" />
+              <mxPoint x="680" y="560" />
+              <mxPoint x="680" y="705" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7-label" value="upsert vectors" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0050ef;" vertex="1" connectable="0" parent="e7">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Ingestion → OpenAI -->
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#0050ef;strokeWidth=2;dashed=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="ingestion" target="openai">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="570" />
+              <mxPoint x="370" y="570" />
+              <mxPoint x="370" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8-label" value="embed chunks" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0050ef;" vertex="1" connectable="0" parent="e8">
+          <mxGeometry x="-0.5" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ACR → AKS (image pull) -->
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#996185;strokeWidth=2;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.85;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="acr" target="aks-boundary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9-label" value="AcrPull" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#996185;" vertex="1" connectable="0" parent="e9">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- AKS → Log Analytics -->
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#996185;strokeWidth=1;dashed=1;exitX=0.95;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="aks-boundary" target="loganalytics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10-label" value="diagnostics" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#996185;" vertex="1" connectable="0" parent="e10">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Prometheus → RAG API (scrape) -->
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;strokeWidth=1;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="prometheus" target="rag-api">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690" y="280" />
+              <mxPoint x="490" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11-label" value="scrape" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#d6b656;" vertex="1" connectable="0" parent="e11">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- User icon -->
+        <mxCell id="user" value="&lt;b&gt;User&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;&quot;&gt;kubectl port-forward&lt;/font&gt;" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="120" y="460" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- User → Nginx -->
+        <mxCell id="e-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="user" target="nginx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- KV → AKS -->
+        <mxCell id="e-kv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#996185;strokeWidth=1;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.1;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="keyvault" target="aks-boundary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-kv-label" value="secrets" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#996185;" vertex="1" connectable="0" parent="e-kv">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#CCCCCC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="150" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="155" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1115" y="180" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" value="Application Pod" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="175" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1115" y="205" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" value="Platform Service" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="200" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1115" y="230" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" value="Azure PaaS" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="225" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1115" y="255" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" value="Ingress (Internal)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="250" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d0de;strokeColor=#996185;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1115" y="280" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5t" value="IaC / Operations" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="275" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-line-solid" value="" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1115" y="310" as="sourcePoint" />
+            <mxPoint x="1135" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg-line-solid-t" value="Data flow" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="302" width="70" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

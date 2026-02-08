@@ -1,0 +1,10 @@
+{
+    "status": "ok",
+    "config": {
+        "model": "gpt-4o-mini",
+        "embedding_model": "text-embedding-3-small",
+        "chunk_size": 1000,
+        "top_k": 5
+    },
+    "message": "Stats endpoint - production would include metrics from Prometheus"
+}

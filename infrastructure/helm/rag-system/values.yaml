@@ -1,0 +1,107 @@
+# =============================================================================
+# RAG System Helm Chart - values.yaml (SINGLE SOURCE OF TRUTH)
+# =============================================================================
+
+replicaCount: 1
+
+image:
+  repository: REPLACE_WITH_ACR/rag-api
+  tag: v1.0.0
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+# --- Ingress (NGINX Internal) ---
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+  host: rag-api.internal
+
+# --- Resources ---
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# --- Azure Services (non-secret config) ---
+azure:
+  openai:
+    endpoint: "REPLACE_VIA_HELM_SET"
+    deploymentName: "gpt-4o-mini"
+    embeddingDeployment: "text-embedding-3-small"
+    apiVersion: "2024-02-01"
+  search:
+    endpoint: "REPLACE_VIA_HELM_SET"
+    indexName: "rag-documents"
+  storage:
+    container: "documents"
+
+# --- Secrets (passed via --set at deploy time) ---
+secrets:
+  azureOpenaiApiKey: "REPLACE_VIA_HELM_SET"
+  azureSearchKey: "REPLACE_VIA_HELM_SET"
+  azureStorageConnectionString: ""
+
+# --- Redis (in-cluster) ---
+redis:
+  url: "redis://redis-master.rag-system.svc.cluster.local:6379/0"
+
+# --- RAG Configuration ---
+rag:
+  chunkSize: "1000"
+  chunkOverlap: "200"
+  topK: "5"
+  similarityThreshold: "0.01"
+
+# --- Health Probes ---
+probes:
+  liveness:
+    path: /health
+    initialDelaySeconds: 10
+    periodSeconds: 30
+  readiness:
+    path: /health
+    initialDelaySeconds: 5
+    periodSeconds: 10
+
+# --- KEDA Autoscaling ---
+keda:
+  enabled: false
+  minReplicaCount: 1
+  maxReplicaCount: 3
+  cooldownPeriod: 300
+  pollingInterval: 30
+  triggers:
+    - type: cpu
+      metricType: Utilization
+      metadata:
+        value: "70"
+
+# --- Pod Disruption Budget ---
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+
+# --- Security ---
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop:
+      - ALL

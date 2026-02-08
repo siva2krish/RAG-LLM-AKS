@@ -1,0 +1,5 @@
+apiVersion: v2
+name: redis
+description: Lightweight in-cluster Redis for RAG caching
+version: 1.0.0
+appVersion: "7.2"

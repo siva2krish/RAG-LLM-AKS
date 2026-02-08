@@ -1,0 +1,6 @@
+apiVersion: v2
+name: rag-chat-ui
+description: Streamlit Chat UI for RAG System
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

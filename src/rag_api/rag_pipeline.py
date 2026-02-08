@@ -168,7 +168,10 @@ class RAGPipeline:
             cached = await self.cache.get(cache_key)
             if cached:
                 logger.info("cache_hit", query=question[:50])
-                return RAGResponse(**cached)
+                # Return cached dict directly (already in API format)
+                # Add from_cache flag to metadata
+                cached["metadata"]["from_cache"] = True
+                return cached  # Return dict, not RAGResponse
         
         # Step 1: Retrieve relevant documents
         logger.info("rag_retrieve_start", query=question[:100])

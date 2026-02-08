@@ -1,0 +1,27 @@
+# Ingestion Worker - Document Processing
+# Polls Azure Blob Storage for new documents
+
+replicaCount: 1
+
+image:
+  repository: REPLACE_WITH_ACR/ingestion-worker
+  tag: "v1.0.0"
+  pullPolicy: Always
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 300m
+    memory: 512Mi
+
+# Worker-specific config
+worker:
+  pollIntervalSeconds: "30"
+
+# Pod security
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000

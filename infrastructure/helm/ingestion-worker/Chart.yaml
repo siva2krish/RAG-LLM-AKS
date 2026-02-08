@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ingestion-worker
+description: Document ingestion worker for RAG pipeline
+version: 1.0.0
+appVersion: "1.0.0"

@@ -1,0 +1,15 @@
+{{- if .Values.keda.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "rag-system.fullname" . }}-scaledobject
+  labels:
+    {{- include "rag-system.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    name: {{ include "rag-system.fullname" . }}
+  minReplicaCount: {{ .Values.keda.minReplicaCount }}
+  maxReplicaCount: {{ .Values.keda.maxReplicaCount }}
+  triggers:
+    {{- toYaml .Values.keda.triggers | nindent 4 }}
+{{- end }}

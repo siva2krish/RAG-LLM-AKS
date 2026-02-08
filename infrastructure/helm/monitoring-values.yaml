@@ -1,0 +1,62 @@
+# =============================================================================
+# kube-prometheus-stack values for cost-optimized dev deployment
+# =============================================================================
+# Installs: Prometheus, Grafana, Alertmanager (lightweight)
+# Cost: $0 (runs on existing AKS node)
+# =============================================================================
+
+# Prometheus - metrics collection
+prometheus:
+  prometheusSpec:
+    retention: 24h          # Only keep 24h of metrics (save disk)
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 300m
+        memory: 512Mi
+    storageSpec: {}          # No persistent storage (ephemeral)
+
+# Grafana - dashboards
+grafana:
+  enabled: true
+  adminPassword: "admin"    # Change in production!
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  persistence:
+    enabled: false           # No persistent storage
+
+# Alertmanager - minimal
+alertmanager:
+  enabled: false             # Disabled for dev (save resources)
+
+# Node exporter - minimal
+nodeExporter:
+  enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
+
+# kube-state-metrics
+kubeStateMetrics:
+  enabled: true
+
+# Disable components we don't need for dev
+kubeProxy:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false

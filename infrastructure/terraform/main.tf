@@ -108,8 +108,8 @@ resource "azurerm_cognitive_deployment" "gpt4o_mini" {
     version = "2024-07-18"
   }
   
-  sku {
-    name     = "Standard"
+  scale {
+    type     = "Standard"
     capacity = 10  # 10K TPM - minimal for learning
   }
 }
@@ -125,8 +125,8 @@ resource "azurerm_cognitive_deployment" "embedding" {
     version = "1"
   }
   
-  sku {
-    name     = "Standard"
+  scale {
+    type     = "Standard"
     capacity = 10  # 10K TPM
   }
 }
@@ -159,9 +159,9 @@ resource "azurerm_storage_account" "main" {
   account_replication_type = "LRS"  # Locally redundant - CHEAPEST
   
   # Cost saving options
-  access_tier              = "Hot"
-  min_tls_version          = "TLS1_2"
-  enable_https_traffic_only = true
+  access_tier               = "Hot"
+  min_tls_version           = "TLS1_2"
+  https_traffic_only_enabled = true
   
   blob_properties {
     delete_retention_policy {
@@ -242,6 +242,21 @@ resource "azurerm_kubernetes_cluster" "main" {
   # Free tier for control plane!
   sku_tier = "Free"
   
+  # ==========================================================================
+  # API Server Access Control
+  # ==========================================================================
+  # Option 1: Private cluster (API server only reachable via VNet)
+  #   - Requires jumpbox VM or VPN to access kubectl
+  #   - Best for production
+  private_cluster_enabled = var.aks_private_cluster
+  
+  # Option 2: Public API server with IP restriction (recommended for dev)
+  #   - API server is public but ONLY your IP can reach it
+  #   - No jumpbox needed, kubectl works from your laptop
+  api_server_access_profile {
+    authorized_ip_ranges = var.aks_private_cluster ? [] : var.aks_authorized_ip_ranges
+  }
+  
   default_node_pool {
     name                = "default"
     node_count          = var.aks_node_count
@@ -265,10 +280,19 @@ resource "azurerm_kubernetes_cluster" "main" {
     type = "SystemAssigned"
   }
   
-  # Disable expensive add-ons
+  # Azure CNI Overlay - Modern networking with better IP management
+  # Benefits over kubenet:
+  # - Pods get IPs from overlay network (not VNet IPs)
+  # - Better performance than kubenet
+  # - Supports Network Policies natively
+  # - Required for some advanced features
   network_profile {
-    network_plugin = "kubenet"  # Cheaper than Azure CNI
-    network_policy = "calico"
+    network_plugin      = "azure"
+    network_plugin_mode = "overlay"  # CNI Overlay mode
+    network_policy      = "azure"    # Azure Network Policy
+    pod_cidr            = "192.168.0.0/16"  # Overlay pod CIDR
+    service_cidr        = "10.0.0.0/16"
+    dns_service_ip      = "10.0.0.10"
   }
   
   tags = local.common_tags
