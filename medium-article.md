@@ -30,7 +30,7 @@ All of this runs on a single Azure Kubernetes Service node.
 
 Rather than describe the architecture in prose, here's the full cloud topology:
 
-![Cloud Architecture — Azure PaaS + AKS Kubernetes topology](docs/screenshots/architecture-cloud.png)
+![Cloud Architecture — Azure PaaS + AKS Kubernetes topology](https://raw.githubusercontent.com/siva2krish/RAG-LLM-AKS/main/docs/screenshots/architecture-cloud.png)
 *Cloud architecture: Azure managed services on the left, AKS cluster with 13 pods across 4 namespaces on the right.*
 
 Here's what's actually running:
@@ -135,7 +135,7 @@ I ran [Infracost](https://www.infracost.io/) against the live Terraform plan to 
 
 ## The RAG pipeline — five stages, five modules
 
-![RAG Pipeline Flow — from user query to cached response](docs/screenshots/rag-pipeline-flow.png)
+![RAG Pipeline Flow — from user query to cached response](https://raw.githubusercontent.com/siva2krish/RAG-LLM-AKS/main/docs/screenshots/rag-pipeline-flow.png)
 *End-to-end RAG pipeline: Cache → Embed → Retrieve → Augment → Return.*
 
 Every query follows a deterministic path through five stages. Each stage is a separate Python module, independently testable.
@@ -193,10 +193,10 @@ The teardown script reverses everything: Helm uninstalls → Terraform destroy �
 
 The entire lifecycle is captured in two scripts. No clicking through the Azure portal. No manual kubectl applies. No "works on my machine."
 
-![Streamlit Chat UI — asking questions against the RAG system](docs/screenshots/chat-ui.png)
+![Streamlit Chat UI — asking questions against the RAG system](https://raw.githubusercontent.com/siva2krish/RAG-LLM-AKS/main/docs/screenshots/chat-ui.png)
 *The Streamlit Chat UI in action — natural language queries with source attribution and cost metadata.*
 
-![Grafana Dashboard — cluster observability at zero marginal cost](docs/screenshots/grafana-dashboard.png)
+![Grafana Dashboard — cluster observability at zero marginal cost](https://raw.githubusercontent.com/siva2krish/RAG-LLM-AKS/main/docs/screenshots/grafana-dashboard.png)
 *Grafana dashboard showing cluster health, pod metrics, and resource utilization — all running on the same B2s node.*
 
 ---
