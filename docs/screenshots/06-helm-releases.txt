@@ -1,9 +1,0 @@
-NAME                            	NAMESPACE    	REVISION	UPDATED                                	STATUS  	CHART                                                    	APP VERSION
-aks-managed-overlay-upgrade-data	kube-system  	45      	2026-02-08 23:51:23.624786278 +0000 UTC	deployed	overlay-upgrade-data-addon-0.1.0-v20260123-addon-260203-6	           
-ingestion-worker                	rag-system   	1       	2026-02-08 15:16:32.001432 -0800 PST   	deployed	ingestion-worker-1.0.0                                   	1.0.0      
-ingress-nginx                   	ingress-nginx	1       	2026-02-08 15:09:30.321535 -0800 PST   	deployed	ingress-nginx-4.14.3                                     	1.14.3     
-keda                            	keda-system  	1       	2026-02-08 15:10:55.878675 -0800 PST   	deployed	keda-2.19.0                                              	2.19.0     
-monitoring                      	monitoring   	1       	2026-02-08 15:12:32.231935 -0800 PST   	deployed	kube-prometheus-stack-81.5.0                             	v0.88.1    
-rag-chat-ui                     	rag-system   	1       	2026-02-08 15:16:00.995283 -0800 PST   	deployed	rag-chat-ui-0.1.0                                        	1.0.0      
-rag-system                      	rag-system   	1       	2026-02-08 15:15:23.912435 -0800 PST   	deployed	rag-system-1.0.0                                         	1.0.0      
-redis                           	rag-system   	1       	2026-02-08 15:11:50.981001 -0800 PST   	deployed	redis-1.0.0                                              	7.2        

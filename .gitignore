@@ -1,15 +1,25 @@
+# =============================================================================
 # Terraform
+# =============================================================================
 **/.terraform/
 *.tfstate
 *.tfstate.*
 *.tfvars
 !environments/*.tfvars
 .terraform.lock.hcl
+tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
 # Infracost cache
 **/.infracost/
 
+# =============================================================================
 # Python
+# =============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -20,20 +30,55 @@ env/
 *.egg-info/
 dist/
 build/
+*.whl
+pip-log.txt
+.pytest_cache/
+htmlcov/
+.coverage
+.mypy_cache/
+.ruff_cache/
 
-# IDE
+# =============================================================================
+# IDE / OS
+# =============================================================================
 .idea/
 .vscode/
 *.swp
 *.swo
 .DS_Store
+Thumbs.db
+*.code-workspace
 
+# =============================================================================
 # Logs
+# =============================================================================
 *.log
 logs/
 
-# Secrets
+# =============================================================================
+# Secrets & credentials — NEVER commit these
+# =============================================================================
 *.pem
 *.key
+*.pfx
+*.p12
 secrets/
-tfplan
+.env.local
+.env.*.local
+
+# =============================================================================
+# Articles & documentation assets (non-code)
+# Keep the repo focused on source code for public viewers
+# =============================================================================
+medium-article.md
+article.md
+docs/screenshots/
+diagrams/*.png
+diagrams/*.svg
+diagrams/*.pdf
+
+# =============================================================================
+# Docker / build artifacts
+# =============================================================================
+*.tar
+*.gz
